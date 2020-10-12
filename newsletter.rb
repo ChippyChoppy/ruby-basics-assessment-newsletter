@@ -28,33 +28,40 @@ ARTICLES = [
 #########################
 
 def calculate_recipients
+  current_subscribers = []
+  current_subscribers << SUBSCRIBERS - UNSUBSCRIBED
   # Using the SUBSCRIBERS and UNSUBSCRIBED arrays,
   # write a method that will return an array of only the subscribers who haven't unsubscribed
 end
 
-def first_n_articles(number_of_articles
+def first_n_articles(number_of_articles)
   ARTICLES.first(number_of_articles)
 end
 
 def print_recipients
+  p calculate_recipients.join(", ")
   # Write a method that uses the output of calculate_recipients
   # and returns a list of emails separated by commas
   # Ex) "abc@email.com, def@email.com, ghi@email.com"
 end
 
 def print_one_article(article)
+  puts article[:title]
+  puts "by: #{article[:author]}"
+  puts article[:text]
+  puts " "
   # Write a method that will take an article hash
   # and print the title, author and text as a formatted string
   # See the README/sample output for examples
 end
 
 def print_many_articles(articles)
-  # Write a method that will take in an array of article hashes
-  # and format each one using the print_one_article method
+  articles.each { |article| print_one_article(article) }
 end
+#binding.pry
 
 def format_campus_location(campus)
-  "Flatiron #{campus["name"]}"
+  "Flatiron #{campus[:name]}"
 end
 
 def format_subject
@@ -68,27 +75,28 @@ end
 def print_newsletter(number)
   puts "Generating this week's newsletter...\n\n"
 
-  print "SUBJECT: "
+  puts "SUBJECT: "
   format_subject
 
-  print "RECIPIENTS: "
+  puts "RECIPIENTS: "
   print_recipients
 
-  puts "\nBODY:"
+  puts "BODY:"
   format_subject
   articles = first_n_articles(number)
   print_many_articles(articles)
   puts format_footer(CAMPUS)
 
-  end
+
 end
 
-def run
+def run(num_articles)
   # We want our program to print three articles by default,
   # but we can change that number here
-  print_newsletter("3")
+  print_newsletter(num_articles)
 end
 
 # When we run "ruby newsletter.rb" in the command line,
 # the 'run' method will be called because we're calling it below.
-run
+run(3)
+#binding.pry 
